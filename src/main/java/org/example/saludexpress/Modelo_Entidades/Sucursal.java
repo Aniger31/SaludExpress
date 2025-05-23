@@ -2,7 +2,6 @@ package org.example.saludexpress.Modelo_Entidades;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
 
 @Entity
 @Table(name="Sucursal")
