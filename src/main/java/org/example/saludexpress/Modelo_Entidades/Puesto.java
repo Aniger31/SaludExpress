@@ -21,4 +21,36 @@ public class Puesto {
 
     @Column(name = "sueldo_base", precision = 10, scale = 2, nullable = false)
     private BigDecimal sueldoBase;
+
+    public Integer getIdPuesto() {
+        return idPuesto;
+    }
+
+    public void setIdPuesto(Integer idPuesto) {
+        this.idPuesto = idPuesto;
+    }
+
+    public String getNombrePuesto() {
+        return nombrePuesto;
+    }
+
+    public void setNombrePuesto(String nombrePuesto) {
+        this.nombrePuesto = nombrePuesto;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public BigDecimal getSueldoBase() {
+        return sueldoBase;
+    }
+
+    public void setSueldoBase(BigDecimal sueldoBase) {
+        this.sueldoBase = sueldoBase;
+    }
 }
