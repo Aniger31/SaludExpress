@@ -9,7 +9,7 @@ public class Medico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="Id_Medico")
-    private Integer id_medico;
+    private Integer idMedico;
 
     @Column(name = "especialidad",length = 50)
     private String especialidad;
@@ -22,11 +22,11 @@ public class Medico {
     private Empleado empleado;
 
     public Integer getId_medico() {
-        return id_medico;
+        return idMedico;
     }
 
     public void setId_medico(Integer id_medico) {
-        this.id_medico = id_medico;
+        this.idMedico = id_medico;
     }
 
     public String getEspecialidad() {

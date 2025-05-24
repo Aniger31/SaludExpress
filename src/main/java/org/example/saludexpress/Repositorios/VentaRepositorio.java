@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface VentaRepositorio extends JpaRepository<VentaRepositorio, Integer> {
+public interface VentaRepositorio extends JpaRepository<Venta, Integer> {
     // Buscar ventas por cliente
     List<Venta> findByClienteIdCliente(Integer idCliente);
 
