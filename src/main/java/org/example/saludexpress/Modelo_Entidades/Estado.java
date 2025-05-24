@@ -9,7 +9,7 @@ public class Estado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="Id_Estado")
-    private int idEstado;
+    private Integer idEstado;
 
     @Column(name="nombre_estado",length = 50, nullable = false)
     private String nombreEstado;
@@ -17,11 +17,11 @@ public class Estado {
     @Column(name="codigo_estado",length = 8, unique = true)
     private String codigoEstado;
 
-    public int getIdEstado() {
+    public Integer getIdEstado() {
         return idEstado;
     }
 
-    public void setIdEstado(int idEstado) {
+    public void setIdEstado(Integer idEstado) {
         this.idEstado = idEstado;
     }
 

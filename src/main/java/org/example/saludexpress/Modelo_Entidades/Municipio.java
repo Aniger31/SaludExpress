@@ -11,7 +11,7 @@ public class Municipio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="Id_Municipio")
-    private int idMunicipio;
+    private Integer idMunicipio;
 
     @Column(name="nombre_municipio",length = 50, nullable = false)
     private String nombreMunicipio;
@@ -20,11 +20,11 @@ public class Municipio {
     @JoinColumn(name = "codigo_estado", nullable = false)
     private Estado estado;
 
-    public int getIdMunicipio() {
+    public Integer getIdMunicipio() {
         return idMunicipio;
     }
 
-    public void setIdMunicipio(int idMunicipio) {
+    public void setIdMunicipio(Integer idMunicipio) {
         this.idMunicipio = idMunicipio;
     }
 
