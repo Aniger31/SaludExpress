@@ -3,6 +3,7 @@ package org.example.saludexpress.Controladores;
 import org.example.saludexpress.Modelo_Entidades.Cliente;
 import org.example.saludexpress.Repositorios.ClienteRepositorio;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +36,13 @@ public class ClienteControlador {
     // Crear un nuevo cliente
     @PostMapping
     public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
+        System.out.println("Recibido cliente con correo: " + cliente.getCorreo());
         if (clienteRepositorio.existsByCorreo(cliente.getCorreo())) {
+            System.out.println("El correo ya existe!");
             return ResponseEntity.badRequest().build(); // Ya existe un cliente con ese correo
         }
         Cliente nuevoCliente = clienteRepositorio.save(cliente);
+        System.out.println("Cliente guardado con ID: " + nuevoCliente.getIdCliente() );
         return ResponseEntity.ok(nuevoCliente);
     }
 

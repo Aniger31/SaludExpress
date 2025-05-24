@@ -2,6 +2,8 @@ package org.example.saludexpress.Modelo_Entidades;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name="Puesto")
 public class Puesto {
@@ -18,5 +20,5 @@ public class Puesto {
     private String descripcion;
 
     @Column(name = "sueldo_base", precision = 10, scale = 2, nullable = false)
-    private Double sueldoBase;
+    private BigDecimal sueldoBase;
 }

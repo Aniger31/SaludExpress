@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface Compra_ProveedorRepositorio extends JpaRepository<Compra_Proveedor, Integer> {
     // Buscar compras por proveedor
-    List<Compra_Proveedor> findByProveedorId(Integer idProveedor);
+    List<Compra_Proveedor> findByProveedorIdProveedor(Integer idProveedor);
 
     // Buscar compras por sucursal
-    List<Compra_Proveedor> findBySucursalId(Integer idSucursal);
+    List<Compra_Proveedor> findBySucursalIdSucursal(Integer idSucursal);
 
     // Buscar compras por fecha de compra (exacta)
     List<Compra_Proveedor> findByFechaCompra(LocalDateTime fechaCompra);
