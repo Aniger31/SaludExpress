@@ -19,7 +19,7 @@ public class Producto {
     @Column(name="descripcion",columnDefinition = "TEXT")
     private String descripcion;
 
-    @Column(name="precion_unitario",precision = 10,scale = 2,nullable = false)
+    @Column(name="precio_unitario")
     private BigDecimal precionUnitario;
 
     @Column(name="cantidad_disponible")
