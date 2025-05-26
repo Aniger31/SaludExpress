@@ -5,6 +5,7 @@ import org.example.saludexpress.Repositorios.ClienteRepositorio;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -66,7 +67,9 @@ public class ClienteControlador {
     // Eliminar cliente por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarCliente(@PathVariable Integer id) {
-        if (!clienteRepositorio.existsById(id)) {
+        Optional<Cliente> clienteOptional = clienteRepositorio.findById(id);
+
+        if (!clienteOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         clienteRepositorio.deleteById(id);
@@ -74,7 +77,8 @@ public class ClienteControlador {
     }
 
     // Eliminar cliente por correo
-    @DeleteMapping("/correo/{correo}")
+    @DeleteMapping("/correo/{correo:.+}")
+    @Transactional
     public ResponseEntity<Void> eliminarClientePorCorreo(@PathVariable String correo) {
         if (!clienteRepositorio.existsByCorreo(correo)) {
             return ResponseEntity.notFound().build();
