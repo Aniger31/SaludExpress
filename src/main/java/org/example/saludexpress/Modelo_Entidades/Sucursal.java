@@ -35,7 +35,7 @@ public class Sucursal {
     private Estado estado;
 
     @ManyToOne
-    @JoinColumn(name = "Nombre")
+    @JoinColumn(name = "Nombre", referencedColumnName = "nombre")
     private Farmacia farmacia;
 
     public Integer getIdSucursal() {
