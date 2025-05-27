@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
             empleados.forEach(e => {
                 const op = document.createElement("option");
                 op.value = e.idEmpleado;
-                op.textContent = `${e.nombreEmpleado} ${e.aPaterno || ""}`;
+                op.textContent = `${e.nombre} ${e.aPaterno || ""}`;
                 empleadoSelect.appendChild(op);
             });
         });
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         div.innerHTML = `
       <label>Producto:</label>
       <select name="producto" required>
-        ${productos.map(p => `<option value="${p.idProducto}" data-precio="${p.precioVenta || 0}">${p.nombreProducto}</option>`).join('')}
+        ${productos.map(p => `<option value="${p.idProducto}" data-precio="${p.precioUnitario || 0}">${p.nombreProducto}</option>`).join('')}
       </select>
       <label>Cantidad:</label>
       <input type="number" name="cantidad" min="1" value="1" required>
@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
         div.querySelector('select[name="producto"]').addEventListener("change", calcularSubtotal);
         div.querySelector('input[name="cantidad"]').addEventListener("input", calcularSubtotal);
         detallesContainer.appendChild(div);
+
+        calcularSubtotal.call(div.querySelector('select[name="producto"]'));
         calcularTotal();
     };
 
