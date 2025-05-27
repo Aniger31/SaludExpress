@@ -20,4 +20,5 @@ public interface ProductoRepositorio extends JpaRepository<Producto, Long> {
 
     // Buscar productos por marca
     List<Producto> findByMarcaIdMarca(Integer idMarca);
+
 }

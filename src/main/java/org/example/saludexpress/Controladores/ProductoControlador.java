@@ -68,7 +68,7 @@ public class ProductoControlador {
             Producto producto = productoExistente.get();
             producto.setNombreProducto(productoActualizado.getNombreProducto());
             producto.setDescripcion(productoActualizado.getDescripcion());
-            producto.setPrecionUnitario(productoActualizado.getPrecionUnitario());
+            producto.setPrecioUnitario(productoActualizado.getPrecioUnitario());
             producto.setCantidadDisponible(productoActualizado.getCantidadDisponible());
             producto.setDepartamento(productoActualizado.getDepartamento());
             producto.setProveedores(productoActualizado.getProveedores());

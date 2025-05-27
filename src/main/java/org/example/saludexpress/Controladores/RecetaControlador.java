@@ -1,6 +1,10 @@
 package org.example.saludexpress.Controladores;
 
+import jakarta.persistence.EntityNotFoundException;
+import org.example.saludexpress.Modelo_Entidades.Cliente;
+import org.example.saludexpress.Modelo_Entidades.Medico;
 import org.example.saludexpress.Modelo_Entidades.Receta;
+import org.example.saludexpress.Repositorios.MedicoRepositorio;
 import org.example.saludexpress.Repositorios.RecetaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +31,31 @@ public class RecetaControlador {
         return recetaOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @Autowired
+    private MedicoRepositorio medicoRepositorio;
+
     @PostMapping
-    public ResponseEntity<Receta> crearReceta(@RequestBody Receta receta) {
+    public ResponseEntity<?> crearReceta(@RequestBody Receta receta) {
+        if (receta.getMedico() == null || receta.getMedico().getIdMedico() == null) {
+            return ResponseEntity.badRequest().body("Debe incluir un id de médico válido");
+        }
+
+        Medico medico = medicoRepositorio.findById(receta.getMedico().getIdMedico())
+                .orElseThrow(() -> new EntityNotFoundException("Medico no encontrado"));
+
+        receta.setMedico(medico);
+
         Receta nuevaReceta = recetaRepositorio.save(receta);
         return ResponseEntity.ok(nuevaReceta);
     }
+
+
+    /**@PostMapping
+    public ResponseEntity<Receta> crearReceta(@RequestBody Receta receta) {
+        Receta nuevaReceta = recetaRepositorio.save(receta);
+        return ResponseEntity.ok(nuevaReceta);
+    }*/
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Receta> actualizarReceta(@PathVariable Integer id, @RequestBody Receta detallesReceta) {

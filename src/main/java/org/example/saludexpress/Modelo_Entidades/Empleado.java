@@ -1,15 +1,12 @@
 package org.example.saludexpress.Modelo_Entidades;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-
 import java.sql.Date;
 
 @Entity
-@Table(name="Empleado")
+@Table(name = "Empleado")
 public class Empleado {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id_Empleado")
@@ -39,7 +36,6 @@ public class Empleado {
     @Column(name = "codigo_postal")
     private String codigoPostal;
 
-
     @Column(name = "telefono")
     private String telefono;
 
@@ -48,28 +44,25 @@ public class Empleado {
 
     @ManyToOne
     @JoinColumn(name = "id_sucursal")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idSucursal") // Usa el ID de Sucursal
-    @JsonIdentityReference(alwaysAsId = true)
     private Sucursal sucursal;
 
     @ManyToOne
     @JoinColumn(name = "id_puesto")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPuesto") // Usa el ID de Puesto
-    @JsonIdentityReference(alwaysAsId = true)
     private Puesto puesto;
 
     @ManyToOne
     @JoinColumn(name = "id_estado")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idEstado") // Usa el ID de Estado
-    @JsonIdentityReference(alwaysAsId = true)
     private Estado estado;
 
     @ManyToOne
     @JoinColumn(name = "id_municipio")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMunicipio") // Usa el ID de Municipio
-    @JsonIdentityReference(alwaysAsId = true)
     private Municipio municipio;
 
+    // Constructor vacío (necesario para JPA)
+    public Empleado() {
+    }
+
+    // Getters y Setters (puedes generarlos con tu IDE o usar Lombok si prefieres)
     public Integer getIdEmpleado() {
         return idEmpleado;
     }
