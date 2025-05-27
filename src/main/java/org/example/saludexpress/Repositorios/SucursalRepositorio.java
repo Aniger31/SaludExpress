@@ -34,4 +34,7 @@ public interface SucursalRepositorio extends JpaRepository<Sucursal, Integer> {
 
     // Buscar por número de calle
     List<Sucursal> findByNumero(Integer numero);
+
+    List<Sucursal> findByFarmacia_Nombre(String nombre);
+
 }

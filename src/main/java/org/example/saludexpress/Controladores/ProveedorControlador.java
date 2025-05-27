@@ -115,6 +115,5 @@ public class ProveedorControlador {
         return ResponseEntity.ok(proR.findByEstado(estado.get()));
     }
 
-
 }
 
