@@ -32,7 +32,7 @@ public class LoginController {
                 Map<String,Object> respuesta= new HashMap<>();
                 respuesta.put("mensaje","Login exitoso");
                 respuesta.put("id_empleado",empleado1.getIdEmpleado()); //id que utilizaremos posteriormente
-                respuesta.put("rol", empleado1.getPuesto());
+                respuesta.put("rol", empleado1.getPuesto().getNombrePuesto());
                 return ResponseEntity.ok(respuesta);
             }
 
