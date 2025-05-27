@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(
-        name = "Municipio",
+        name = "municipio",
         uniqueConstraints = @UniqueConstraint(columnNames = {"nombreMunicipio", "idEstado"})
 )
 public class Municipio {
@@ -17,7 +17,7 @@ public class Municipio {
     private String nombreMunicipio;
 
     @ManyToOne
-    @JoinColumn(name = "codigo_estado", nullable = false)
+    @JoinColumn(name = "id_estado", nullable = false)
     private Estado estado;
 
     public Integer getIdMunicipio() {
