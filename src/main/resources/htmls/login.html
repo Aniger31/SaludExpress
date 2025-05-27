@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+<div class="main">
+    <h1>Salud Express</h1>
+
+
+    <form id="loginForm">
+        <label for="first">
+            Nombre:
+        </label>
+        <input type="text" id="first" name="first"
+               placeholder="Ingresa tu nombre" required>
+
+        <label for="email">
+            Email:
+        </label>
+        <input type="email" id="email" name="email"
+               placeholder="" required>
+
+        <div class="wrap">
+            <button type="submit">
+                Submit
+            </button>
+        </div>
+    </form>
+
+</div>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function (e){
+        e.preventDefault();
+        const data = {
+            nombre : document.getElementById("first").value,
+            email : document.getElementById("email").value,
+        };
+
+        fetch("pagina/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data =>{
+                alert(data.mensaje);
+                localStorage.setItem("id_empleado", data.id_empleado);
+                localStorage.setItem("rol", data.rol);
+
+                if (data.rol === "admin") {
+                    window.location.href = "/admin_home.html";
+                } else if (data.rol === "empleado") {
+                    window.location.href = "/empleado_home.html";
+                } else {
+                    alert("Rol desconocido. Contacta al administrador.");
+                }
+            })
+
+            .catch(err =>{
+                alert(err.message);
+            });
+    });
+</script>
+</body>
+</html>

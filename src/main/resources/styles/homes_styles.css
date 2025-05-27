@@ -1,0 +1,57 @@
+/*Es la aplicacion de la fuente de letras*/
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+:root {
+    /* Variables de color y fuente */
+    --beige: #f5f5dc;
+    --azul-grisaceo: #6c7a89;
+    --verde-acento: #4CAF50;
+    --verde-hover: #159c44;
+    --fuente-principal: 'Nunito', sans-serif;
+}
+
+/*fondo beige con la misma fuente de letra*/
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--beige);
+    font-family: var(--fuente-principal);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.vertical-menu {
+    width: 200px;
+    background-color: white;
+    border: 1px solid var(--azul-grisaceo);
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    font-family: var(--fuente-principal);
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.vertical-menu a {
+    background-color: white;
+    color: var(--azul-grisaceo);
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.vertical-menu a:hover {
+    background-color: var(--verde-hover);
+    color: white;
+}
+
+.vertical-menu a.active {
+    background-color: var(--verde-acento);
+    color: white;
+    font-weight: 600;
+}
+
+
+
