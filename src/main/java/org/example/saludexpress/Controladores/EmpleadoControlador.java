@@ -1,6 +1,6 @@
 package org.example.saludexpress.Controladores;
 
-import org.example.saludexpress.Modelo_Entidades.Empleado;
+import org.example.saludexpress.Modelo_Entidades.*;
 import org.example.saludexpress.Repositorios.EmpleadoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +29,10 @@ public class EmpleadoControlador {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Crear un nuevo empleado
+    //Crear un nuevo empleado
     @PostMapping
     public ResponseEntity<Empleado> crearEmpleado(@RequestBody Empleado empleado) {
+        System.out.println("Empleado recibido: " + empleado);
         Empleado nuevoEmpleado = empleadoRepositorio.save(empleado);
         return ResponseEntity.ok(nuevoEmpleado);
     }

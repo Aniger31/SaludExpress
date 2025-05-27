@@ -22,13 +22,14 @@ public class Medico {
     @JoinColumn(name = "Id_Medico", referencedColumnName = "Id_Empleado", insertable = false, updatable = false)
     private Empleado empleado;
 
-    public Integer getId_medico() {
+    public Integer getIdMedico() {
         return idMedico;
     }
 
-    public void setId_medico(Integer id_medico) {
-        this.idMedico = id_medico;
+    public void setIdMedico(Integer idMedico) {
+        this.idMedico = idMedico;
     }
+
 
     public String getEspecialidad() {
         return especialidad;
@@ -53,4 +54,5 @@ public class Medico {
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
     }
+
 }

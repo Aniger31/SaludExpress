@@ -3,6 +3,7 @@ package org.example.saludexpress.Modelo_Entidades;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name="Producto")
@@ -20,7 +21,7 @@ public class Producto {
     private String descripcion;
 
     @Column(name="precio_unitario")
-    private BigDecimal precionUnitario;
+    private BigDecimal precioUnitario;
 
     @Column(name="cantidad_disponible")
     private Integer cantidadDisponible;
@@ -29,9 +30,17 @@ public class Producto {
     @JoinColumn(name = "idDepartamento")
     private Departamento departamento;
 
-    @ManyToOne
-    @JoinColumn(name = "idProveedor")
-    private Proveedores proveedores;
+    //@ManyToOne
+    //@JoinColumn(name = "idProveedor")
+    //private Proveedores proveedores;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Producto_Proveedor",
+            joinColumns = @JoinColumn(name = "Id_Producto"),
+            inverseJoinColumns = @JoinColumn(name = "Id_Proveedor")
+    )
+    private List<Proveedores> proveedores;
 
     @ManyToOne
     @JoinColumn(name = "idMarca")
@@ -61,12 +70,12 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getPrecionUnitario() {
-        return precionUnitario;
+    public BigDecimal getPrecioUnitario() {
+        return precioUnitario;
     }
 
-    public void setPrecionUnitario(BigDecimal precionUnitario) {
-        this.precionUnitario = precionUnitario;
+    public void setPrecioUnitario(BigDecimal precionUnitario) {
+        this.precioUnitario = precionUnitario;
     }
 
     public Integer getCantidadDisponible() {
@@ -85,13 +94,22 @@ public class Producto {
         this.departamento = departamento;
     }
 
-    public Proveedores getProveedores() {
-        return proveedores;
+    /**public Proveedores getProveedores() {
+       return proveedores;
     }
 
     public void setProveedores(Proveedores proveedores) {
         this.proveedores = proveedores;
+    }*/
+
+    public List<Proveedores> getProveedores() {
+        return proveedores;
     }
+
+    public void setProveedores(List<Proveedores> proveedores) {
+        this.proveedores = proveedores;
+    }
+
 
     public Marca getMarca() {
         return marca;
@@ -100,6 +118,5 @@ public class Producto {
     public void setMarca(Marca marca) {
         this.marca = marca;
     }
-
 
 }
