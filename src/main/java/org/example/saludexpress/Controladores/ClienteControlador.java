@@ -97,7 +97,7 @@ public class ClienteControlador {
         return ResponseEntity.notFound().build();
     }
 
-    // Buscar clientes por nombre parcial
+    // Buscar clientes por nombre
     @GetMapping("/nombre")
     public List<Cliente> buscarPorNombreParcial(@RequestParam String nombre) {
         return clienteRepositorio.findByNombreClienteContainingIgnoreCase(nombre);
