@@ -21,11 +21,8 @@ async function cargarProductos() {
     body.classList.add("accordion-body");
     body.innerHTML = `
                     <p><strong>Descripción:</strong> ${producto.descripcion}</p>
-                    <p><strong>Precio Unitario:</strong> $${producto.precionUnitario}</p>
+                    <p><strong>Precio Unitario:</strong> $${producto.precioUnitario}</p>
                     <p><strong>Cantidad Disponible:</strong> ${producto.cantidadDisponible}</p>
-                    <p><strong>Departamento:</strong> ${producto.departamento?.nombre || 'Sin departamento'}</p>
-                    <p><strong>Proveedor:</strong> ${producto.proveedores?.nombre || 'Sin proveedor'}</p>
-                    <p><strong>Marca:</strong> ${producto.marca?.nombre || 'Sin marca'}</p>
                 `;
 
     // Evento toggle
