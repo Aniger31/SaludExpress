@@ -115,14 +115,5 @@ public class ProveedorControlador {
         return ResponseEntity.ok(proR.findByEstado(estado.get()));
     }
 
-    //eliminar proveedor por correo
-    @DeleteMapping("/eliminar/correo")
-    public ResponseEntity<Void> eliminarPorCorreo(@RequestParam("correo") String correo) {
-        if (!proR.existsByCorreo(correo)) {
-            return ResponseEntity.notFound().build();
-        }
-        proR.deleteByCorreo(correo);
-        return ResponseEntity.noContent().build();
-    }
 }
 

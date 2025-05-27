@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Venta de Productos</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+
+</head>
+<body>
+<div class="main">
+<form id="formVenta">
+    <h3>Registrar Venta</h3>
+
+    <!-- Cliente -->
+    <label for="cliente">Cliente:</label>
+    <select id="cliente" name="clienteId" required></select>
+
+    <!-- Empleado -->
+    <label for="empleado">Empleado:</label>
+    <select id="empleado" name="empleadoId" required></select>
+
+    <!-- Metodo de pago -->
+    <label for="metodoPago">Método de Pago:</label>
+    <select id="metodoPago" name="metodoPago" required>
+        <option value="Efectivo">Efectivo</option>
+        <option value="Tarjeta">Tarjeta</option>
+        <option value="Transferencia">Transferencia</option>
+    </select>
+
+    <!-- Fecha de venta -->
+    <label for="fechaVenta">Fecha de Venta:</label>
+    <input type="datetime-local" id="fechaVenta" name="fechaVenta" required>
+
+    <!-- Sección dinámica para detalles de venta -->
+    <div id="detallesContainer">
+        <h4>Detalle de productos</h4>
+        <button type="button" onclick="agregarDetalle()">+ Agregar producto</button>
+    </div>
+
+    <!-- Total -->
+    <p><strong>Total:</strong> $<span id="totalVenta">0.00</span></p>
+
+    <button type="submit">Registrar Venta</button>
+</form>
+</div>
+<script type="text/javascript" src="/scripts/empleado_venta_productos.js"></script>
+</body>
+</html>

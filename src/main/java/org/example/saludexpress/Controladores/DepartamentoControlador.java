@@ -4,6 +4,7 @@ import org.example.saludexpress.Modelo_Entidades.Departamento;
 import org.example.saludexpress.Repositorios.DepartamentoRepositorio;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -73,6 +74,7 @@ public class DepartamentoControlador {
     }
 
     // Eliminar por nombre
+    @Transactional
     @DeleteMapping("/eliminarPorNombre")
     public ResponseEntity<Void> eliminarPorNombre(@RequestParam String nombre) {
         if (dr.existsByNombreDepartamento(nombre)) {

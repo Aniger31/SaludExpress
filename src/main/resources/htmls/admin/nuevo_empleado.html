@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Empleado</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+
+<div class="main">
+    <h1>SaludExpress</h1>
+    <h3> Registro de Empleado </h3>
+    <form id="registroForm">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+
+        <label for="apellidoP">Apellido Paterno:</label>
+        <input type="text" id="apellidoP" name="apellidoP" required>
+        <br>
+
+        <label for="apellidoM">Apellido Materno:</label>
+        <input type="text" id="apellidoM" name="apellidoM" required>
+        <br>
+
+        <label for="fechaN">Fecha de Nacimiento:</label>
+        <input type="date" id="fechaN" name="fechaN" required>
+        <br>
+
+        <!-- Puesto -->
+        <label for="puesto">Puesto:</label>
+        <select id="puesto" name="puestoId"></select>
+
+        <!-- Sucursal -->
+        <label for="sucursal">Sucursal:</label>
+        <select id="sucursal" name="sucursalId"></select>
+
+
+        <label for="fechaC">Fecha de Contratacion:</label>
+        <input type="date" id="fechaC" name="fechaC" required>
+        <br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+
+        <label for="telefono">Telefono:</label>
+        <input type="text" id="telefono" name="telefono" required>
+        <br>
+
+        <h5>Direccion</h5>
+        <label for="calle">Calle:</label>
+        <input type="text" id="calle" name="calle" required>
+        <br>
+
+        <label for="colonia">Colonia:</label>
+        <input type="text" id="colonia" name="colonia" required>
+        <br>
+
+        <label for="codigoP">Codigo Postal:</label>
+        <input type="text" id="codigoP" name="codigoP" required>
+        <br>
+
+
+        <!-- Estado -->
+        <label for="estado">Estado:</label>
+        <select id="estado" name="estadoId"></select>
+
+        <!-- Municipio -->
+        <label for="municipio">Municipio:</label>
+        <select id="municipio" name="municipioId"></select>
+
+
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (){
+            document.getElementById("registroForm").addEventListener("submit", function (e){
+                e.preventDefault();
+
+                const data = {
+                    name: document.getElementById("name").value,
+                    apellidoP: document.getElementById("apellidoP").value,
+                    apellidoM: document.getElementById("apellidoM").value,
+                    fechaN: document.getElementById("fechaN").value,
+                    fechaC: document.getElementById("fechaC").value,
+                    email: document.getElementById("email").value,
+                    telefono: document.getElementById("telefono").value,
+                    calle: document.getElementById("calle").value,
+                    colonia: document.getElementById("colonia").value,
+                    codigoP: document.getElementById("codigoP").value,
+                    puestoId: document.getElementById("puesto").value,
+                    estadoId: document.getElementById("estado").value,
+                    municipioId: document.getElementById("municipio").value,
+                    sucursalId: document.getElementById("sucursal").value
+                };
+
+
+                fetch("api/empleados",{
+                    method : "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body : JSON.stringify(data)
+                })
+                    .then(res => res.text())
+                    .then(msg =>{
+                        alert(msg);
+                        window.location.href ="/admin_home.html"; //vuelve al home despues de registrarse
+                    })
+                    .catch(err => console.error(err))
+            });
+        });
+
+    </script>
+
+</body>
+</html>
