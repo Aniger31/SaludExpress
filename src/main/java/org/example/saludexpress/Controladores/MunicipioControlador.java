@@ -6,6 +6,7 @@ import org.example.saludexpress.Repositorios.EstadoRepositorio;
 import org.example.saludexpress.Repositorios.MunicipioRepositorio;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -111,6 +112,7 @@ public class MunicipioControlador {
     }
 
     //eliminar municipio por nombre y estado
+    @Transactional
     @DeleteMapping("/por-nombre-estado")
     public ResponseEntity<?> eliminarPorNombreYEstado(@RequestParam String nombre, @RequestParam int idEstado) {
         Optional<Estado> estadoOpt = esR.findById(idEstado);

@@ -4,6 +4,7 @@ import org.example.saludexpress.Modelo_Entidades.Estado;
 import org.example.saludexpress.Repositorios.EstadoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -84,6 +85,7 @@ public class EstadoContolador {
 
     //eliminar por código
     @DeleteMapping("/eliminarPorCodigo")
+    @Transactional
     public ResponseEntity<Void> eliminarPorCodigo(@RequestParam String codigo) {
         if (er.existsByCodigoEstado(codigo)) {
             er.deleteByCodigoEstado(codigo);
