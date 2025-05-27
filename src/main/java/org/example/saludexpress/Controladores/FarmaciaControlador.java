@@ -2,6 +2,7 @@ package org.example.saludexpress.Controladores;
 
 import org.example.saludexpress.Modelo_Entidades.Farmacia;
 import org.example.saludexpress.Repositorios.FarmaciaRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,13 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/faramcia")
+@RequestMapping("/api/farmacia")
 public class FarmaciaControlador {
-    private final FarmaciaRepositorio fr;
-
-    public FarmaciaControlador(FarmaciaRepositorio fr) {
-        this.fr = fr;
-    }
+    @Autowired
+    private FarmaciaRepositorio fr;
 
     @GetMapping
     public List<Farmacia> findAll() {

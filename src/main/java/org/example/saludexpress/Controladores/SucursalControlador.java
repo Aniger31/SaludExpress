@@ -1,6 +1,8 @@
 package org.example.saludexpress.Controladores;
 
+import org.example.saludexpress.Modelo_Entidades.Municipio;
 import org.example.saludexpress.Modelo_Entidades.Sucursal;
+import org.example.saludexpress.Repositorios.MunicipioRepositorio;
 import org.example.saludexpress.Repositorios.SucursalRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class SucursalControlador {
     @Autowired
     private SucursalRepositorio sr;
 
+    @Autowired
+    private MunicipioRepositorio mr;
+
     @GetMapping
     public List<Sucursal> findAll() {
         return sr.findAll();
@@ -27,7 +32,18 @@ public class SucursalControlador {
     }
 
     @PostMapping
-    public ResponseEntity<Sucursal> crearSucursal(@RequestBody Sucursal sucursal) {
+    public ResponseEntity<?> crearSucursal(@RequestBody Sucursal sucursal) {
+        if (sucursal.getMunicipio() == null || sucursal.getMunicipio().getIdMunicipio() == null) {
+            return ResponseEntity.badRequest().body("Debe especificar un municipio válido.");
+        }
+
+        Optional<Municipio> municipio = mr.findById(sucursal.getMunicipio().getIdMunicipio());
+        if (!municipio.isPresent()) {
+            return ResponseEntity.badRequest().body("El municipio especificado no existe.");
+        }
+
+        sucursal.setMunicipio(municipio.get());
+
         return ResponseEntity.ok(sr.save(sucursal));
     }
 
