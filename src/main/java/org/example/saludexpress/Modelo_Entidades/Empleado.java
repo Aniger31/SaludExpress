@@ -1,5 +1,8 @@
 package org.example.saludexpress.Modelo_Entidades;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -45,18 +48,26 @@ public class Empleado {
 
     @ManyToOne
     @JoinColumn(name = "id_sucursal")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idSucursal") // Usa el ID de Sucursal
+    @JsonIdentityReference(alwaysAsId = true)
     private Sucursal sucursal;
 
     @ManyToOne
     @JoinColumn(name = "id_puesto")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPuesto") // Usa el ID de Puesto
+    @JsonIdentityReference(alwaysAsId = true)
     private Puesto puesto;
 
     @ManyToOne
     @JoinColumn(name = "id_estado")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idEstado") // Usa el ID de Estado
+    @JsonIdentityReference(alwaysAsId = true)
     private Estado estado;
 
     @ManyToOne
     @JoinColumn(name = "id_municipio")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMunicipio") // Usa el ID de Municipio
+    @JsonIdentityReference(alwaysAsId = true)
     private Municipio municipio;
 
     public Integer getIdEmpleado() {
