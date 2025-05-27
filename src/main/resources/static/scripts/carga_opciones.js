@@ -16,7 +16,7 @@ function cargarOpciones(url, selectId, nombreCampo, idCampo) {
 // Cargar opciones al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     cargarOpciones("/api/puestos", "puesto", "nombrePuesto", "idPuesto");
-    cargarOpciones("/api/estados", "estado", "nombreEstado", "idEstado");
+    cargarOpciones("/estados", "estado", "nombreEstado", "idEstado");
     cargarOpciones("/api/municipios", "municipio", "nombreMunicipio", "idMunicipio");
-    cargarOpciones("/api/sucursales", "sucursal", "colonia", "idSucursal");
+    cargarOpciones("/sucursales", "sucursal", "colonia", "idSucursal");
 });
