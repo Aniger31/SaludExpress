@@ -1,5 +1,7 @@
 package org.example.saludexpress.Controladores;
+import org.example.saludexpress.Modelo_Entidades.Empleado;
 import org.example.saludexpress.Modelo_Entidades.Medico;
+import org.example.saludexpress.Repositorios.EmpleadoRepositorio;
 import org.example.saludexpress.Repositorios.MedicoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +30,29 @@ public class MedicoControlador {
         return medicoOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @Autowired
+    private MedicoRepositorio medicoRepository;
+
+    @Autowired
+    private EmpleadoRepositorio empleadoRepository;
+
     // Crear un nuevo médico
     @PostMapping
     public ResponseEntity<Medico> crearMedico(@RequestBody Medico medico) {
-        // Aquí podrías verificar si el Id_Medico ya está asignado a un Empleado válido
-        Medico nuevoMedico = medicoRepositorio.save(medico);
-        return ResponseEntity.ok(nuevoMedico);
+        try {
+            // Buscar el empleado existente por ID
+            if (medico.getEmpleado() != null && medico.getEmpleado().getIdEmpleado() != null) {
+                Empleado empleadoExistente = empleadoRepository.findById(medico.getEmpleado().getIdEmpleado())
+                        .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+                medico.setEmpleado(empleadoExistente);
+            }
+
+            Medico medicoGuardado = medicoRepository.save(medico);
+            return ResponseEntity.ok(medicoGuardado);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
     // Actualizar médico existente

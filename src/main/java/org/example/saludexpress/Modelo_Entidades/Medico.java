@@ -18,6 +18,7 @@ public class Medico {
     private String cedulaProfesional;
 
     @OneToOne
+    @MapsId
     @JoinColumn(name = "Id_Medico", referencedColumnName = "Id_Empleado", insertable = false, updatable = false)
     private Empleado empleado;
 
