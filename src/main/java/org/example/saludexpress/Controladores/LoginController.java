@@ -18,14 +18,14 @@ public class LoginController {
     @Autowired
     private EmpleadoRepositorio empleadoRepositorio;
 
-    // ← NUEVO: Método para mostrar la página de login
+    // ← NUEVO: Metodo para mostrar la página de login
     @GetMapping("/login")
     public String mostrarLogin() {
         return "login"; // Busca login.html en src/main/resources/templates/
     }
 
     @PostMapping(path="/login")
-    @ResponseBody  // ← Necesario para que este método específico devuelva JSON
+    @ResponseBody  // ← Necesario para que este metodo específico devuelva JSON
     public ResponseEntity<Map<String,Object>> login(@RequestBody Map<String,String> loginInfo){
         String nombre = loginInfo.get("nombre");
         String email = loginInfo.get("email");
