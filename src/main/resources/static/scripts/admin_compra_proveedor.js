@@ -13,14 +13,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 option.textContent = p.nombreProducto;
                 if (p.proveedor) {
                     option.dataset.proveedor = `${p.proveedor.nombreProveedor} ${p.proveedor.apaterno || ""} ${p.proveedor.amaterno || ""}`.trim();
+                    option.dataset.proveedorId = p.proveedor.idProveedor; // ← CORREGIDO: Agregar proveedorId
                 } else {
                     option.dataset.proveedor = "Proveedor no disponible";
-                    option.dataset.proveedorId = "";
+                    option.dataset.proveedorId = ""; // ← CORREGIDO: Establecer como vacío si no hay proveedor
                 }
                 productoSelect.appendChild(option);
             });
 
             productoSelect.dispatchEvent(new Event('change'));
+        })
+        .catch(err => {
+            console.error("Error al cargar productos:", err);
+            alert("Error al cargar los productos");
         });
 
     // Cargar sucursales
@@ -33,6 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 option.textContent = `${s.calle} #${s.numero}, ${s.colonia}`;
                 sucursalSelect.appendChild(option);
             });
+        })
+        .catch(err => {
+            console.error("Error al cargar sucursales:", err);
+            alert("Error al cargar las sucursales");
         });
 
     productoSelect.addEventListener("change", () => {
@@ -45,22 +54,36 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const selectedProduct = productoSelect.options[productoSelect.selectedIndex];
+        const proveedorId = selectedProduct.dataset.proveedorId;
+
+        // ← NUEVA VALIDACIÓN: Verificar que hay un proveedor válido
+        if (!proveedorId || proveedorId === "") {
+            alert("El producto seleccionado no tiene un proveedor asignado");
+            return;
+        }
 
         const compra = {
-            proveedor: { idProveedor: parseInt(selectedProduct.dataset.proveedorId) },
+            proveedor: { idProveedor: parseInt(proveedorId) },
             sucursal: { idSucursal: parseInt(sucursalSelect.value) },
             fechaCompra: document.getElementById("fechaCompra").value
         };
 
-        console.log("Iniciando registro de compra...");
+        console.log("Compra que se enviará:", compra);
 
         fetch("/api/compras-proveedor", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(compra)
         })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Error en compra: ${res.status}`);
+                }
+                return res.json();
+            })
             .then(compraRegistrada => {
+                console.log("Compra registrada:", compraRegistrada);
+
                 // Ahora registramos el detalle
                 const detalle = {
                     compra: { idCompra: compraRegistrada.idCompra },
@@ -69,8 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     precioUnitario: parseFloat(document.getElementById("precioUnitario").value)
                 };
 
-                console.log("Detalle que se enviará al backend:", detalle); // ← AGREGA ESTO
-
+                console.log("Detalle que se enviará al backend:", detalle);
 
                 return fetch("/api/detalles-compra", {
                     method: "POST",
@@ -81,17 +103,18 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(res => {
                 if (res.ok) {
                     alert("Compra y detalle registrados con éxito");
-                    window.location.href = "admin_home.html"
+                    document.getElementById("formCompra").reset();
+                    // window.location.href = "admin_home.html"; // Descomenta si quieres redirigir
                 } else {
-                    res.text().then(text => {
+                    return res.text().then(text => {
                         console.error("Error al registrar detalle:", res.status, text);
                         alert(`Error al registrar el detalle de compra: ${res.status} ${text}`);
                     });
                 }
             })
             .catch(err => {
-                console.error(err);
-                alert("Error al registrar la compra");
+                console.error("Error completo:", err);
+                alert("Error al registrar la compra: " + err.message);
             });
     });
 });
