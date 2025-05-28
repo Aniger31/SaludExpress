@@ -71,7 +71,7 @@ public class ProductoControlador {
             producto.setPrecioUnitario(productoActualizado.getPrecioUnitario());
             producto.setCantidadDisponible(productoActualizado.getCantidadDisponible());
             producto.setDepartamento(productoActualizado.getDepartamento());
-            producto.setProveedores(productoActualizado.getProveedores());
+            producto.setProveedor(productoActualizado.getProveedor());
             producto.setMarca(productoActualizado.getMarca());
             return ResponseEntity.ok(pR.save(producto));
         } else {

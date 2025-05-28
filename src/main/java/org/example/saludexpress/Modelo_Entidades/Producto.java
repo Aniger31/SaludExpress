@@ -30,17 +30,18 @@ public class Producto {
     @JoinColumn(name = "idDepartamento")
     private Departamento departamento;
 
-    //@ManyToOne
-    //@JoinColumn(name = "idProveedor")
-    //private Proveedores proveedores;
+    @ManyToOne
+    @JoinColumn(name = "id_proveedor")
+    private Proveedores proveedores;
 
-    @ManyToMany
-    @JoinTable(
-            name = "Producto_Proveedor",
-            joinColumns = @JoinColumn(name = "Id_Producto"),
-            inverseJoinColumns = @JoinColumn(name = "Id_Proveedor")
-    )
-    private List<Proveedores> proveedores;
+   //@ManyToMany
+    //@JoinTable(
+   //         name = "Producto_Proveedor",
+   //         joinColumns = @JoinColumn(name = "Id_Producto"),
+  //          inverseJoinColumns = @JoinColumn(name = "Id_Proveedor")
+  //  )
+  //  private List<Proveedores> proveedores;
+
 
     @ManyToOne
     @JoinColumn(name = "idMarca")
@@ -94,21 +95,14 @@ public class Producto {
         this.departamento = departamento;
     }
 
-    /**public Proveedores getProveedores() {
+    public Proveedores getProveedor() {
        return proveedores;
     }
 
-    public void setProveedores(Proveedores proveedores) {
-        this.proveedores = proveedores;
-    }*/
-
-    public List<Proveedores> getProveedores() {
-        return proveedores;
-    }
-
-    public void setProveedores(List<Proveedores> proveedores) {
+    public void setProveedor(Proveedores proveedores) {
         this.proveedores = proveedores;
     }
+
 
 
     public Marca getMarca() {

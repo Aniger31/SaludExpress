@@ -11,14 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 const option = document.createElement("option");
                 option.value = p.idProducto;
                 option.textContent = p.nombreProducto;
-                option.dataset.proveedor = `${p.proveedores.nombreProveedor} ${p.proveedores.apaterno || ""} ${p.proveedores.amaterno || ""}`;
-                option.dataset.proveedorId = p.proveedores.idProveedor;
+                if (p.proveedor) {
+                    option.dataset.proveedor = `${p.proveedor.nombreProveedor} ${p.proveedor.apaterno || ""} ${p.proveedor.amaterno || ""}`.trim();
+                } else {
+                    option.dataset.proveedor = "Proveedor no disponible";
+                    option.dataset.proveedorId = "";
+                }
                 productoSelect.appendChild(option);
             });
+
+            productoSelect.dispatchEvent(new Event('change'));
         });
 
     // Cargar sucursales
-    fetch("/api/sucursales")
+    fetch("/sucursales")
         .then(res => res.json())
         .then(sucursales => {
             sucursales.forEach(s => {
@@ -46,6 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
             fechaCompra: document.getElementById("fechaCompra").value
         };
 
+        console.log("Iniciando registro de compra...");
+
         fetch("/api/compras-proveedor", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -61,6 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     precioUnitario: parseFloat(document.getElementById("precioUnitario").value)
                 };
 
+                console.log("Detalle que se enviará al backend:", detalle); // ← AGREGA ESTO
+
+
                 return fetch("/api/detalles-compra", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -72,7 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert("Compra y detalle registrados con éxito");
                     window.location.href = "admin_home.html"
                 } else {
-                    alert("Error al registrar el detalle de compra");
+                    res.text().then(text => {
+                        console.error("Error al registrar detalle:", res.status, text);
+                        alert(`Error al registrar el detalle de compra: ${res.status} ${text}`);
+                    });
                 }
             })
             .catch(err => {
