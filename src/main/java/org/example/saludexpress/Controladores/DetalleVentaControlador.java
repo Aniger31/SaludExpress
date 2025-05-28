@@ -45,7 +45,6 @@ public class DetalleVentaControlador {
         detalle.setProducto(detalles.getProducto());
         detalle.setCantidad(detalles.getCantidad());
         detalle.setPrecioUnitario(detalles.getPrecioUnitario());
-        // El campo subtotal es de solo lectura según tu entidad, así que no se modifica
 
         Detalle_Venta detalleActualizado = detalleVentaRepositorio.save(detalle);
         return ResponseEntity.ok(detalleActualizado);

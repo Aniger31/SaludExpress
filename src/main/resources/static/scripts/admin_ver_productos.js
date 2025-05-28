@@ -30,7 +30,7 @@ async function cargarProductos() {
     body.style.display = (body.style.display === "none") ? "block" : "none";
 });
 
-    body.style.display = "none"; // Oculto por defecto
+    body.style.display = "none";
 
     item.appendChild(header);
     item.appendChild(body);

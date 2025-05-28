@@ -55,7 +55,7 @@ public class EstadoContolador {
     @PostMapping
     public ResponseEntity<Estado> crear(@RequestBody Estado estado) {
         if (er.existsByCodigoEstado(estado.getCodigoEstado())) {
-            return ResponseEntity.badRequest().body(null); // Código duplicado
+            return ResponseEntity.badRequest().body(null); 
         }
         return ResponseEntity.ok(er.save(estado));
     }

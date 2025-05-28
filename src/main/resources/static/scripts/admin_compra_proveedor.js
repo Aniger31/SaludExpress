@@ -13,10 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 option.textContent = p.nombreProducto;
                 if (p.proveedor) {
                     option.dataset.proveedor = `${p.proveedor.nombreProveedor} ${p.proveedor.apaterno || ""} ${p.proveedor.amaterno || ""}`.trim();
-                    option.dataset.proveedorId = p.proveedor.idProveedor; // ← CORREGIDO: Agregar proveedorId
+                    option.dataset.proveedorId = p.proveedor.idProveedor;
                 } else {
                     option.dataset.proveedor = "Proveedor no disponible";
-                    option.dataset.proveedorId = ""; // ← CORREGIDO: Establecer como vacío si no hay proveedor
+                    option.dataset.proveedorId = "";
                 }
                 productoSelect.appendChild(option);
             });
@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const selectedProduct = productoSelect.options[productoSelect.selectedIndex];
         const proveedorId = selectedProduct.dataset.proveedorId;
 
-        // ← NUEVA VALIDACIÓN: Verificar que hay un proveedor válido
         if (!proveedorId || proveedorId === "") {
             alert("El producto seleccionado no tiene un proveedor asignado");
             return;
@@ -104,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (res.ok) {
                     alert("Compra y detalle registrados con éxito");
                     document.getElementById("formCompra").reset();
-                    // window.location.href = "admin_home.html"; // Descomenta si quieres redirigir
                 } else {
                     return res.text().then(text => {
                         console.error("Error al registrar detalle:", res.status, text);
