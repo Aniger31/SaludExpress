@@ -17,6 +17,6 @@ function cargarOpciones(url, selectId, nombreCampo, idCampo) {
 document.addEventListener("DOMContentLoaded", () => {
     cargarOpciones("/api/puestos", "puesto", "nombrePuesto", "idPuesto");
     cargarOpciones("/estados", "estado", "nombreEstado", "idEstado");
-    cargarOpciones("/api/municipios", "municipio", "nombreMunicipio", "idMunicipio");
+    cargarOpciones("/api/municipios/estado/{estadoId}", "municipio", "nombreMunicipio", "idMunicipio");
     cargarOpciones("/sucursales", "sucursal", "colonia", "idSucursal");
 });
