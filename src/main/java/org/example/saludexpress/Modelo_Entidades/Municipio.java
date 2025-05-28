@@ -1,5 +1,6 @@
 package org.example.saludexpress.Modelo_Entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class Municipio {
     @Column(name="nombre_municipio",length = 50, nullable = false)
     private String nombreMunicipio;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_estado", nullable = false)
     private Estado estado;

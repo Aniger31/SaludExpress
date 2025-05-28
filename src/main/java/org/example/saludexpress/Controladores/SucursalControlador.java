@@ -3,6 +3,7 @@ package org.example.saludexpress.Controladores;
 import org.example.saludexpress.Modelo_Entidades.Estado;
 import org.example.saludexpress.Modelo_Entidades.Municipio;
 import org.example.saludexpress.Modelo_Entidades.Sucursal;
+import org.example.saludexpress.Repositorios.EstadoRepositorio;
 import org.example.saludexpress.Repositorios.MunicipioRepositorio;
 import org.example.saludexpress.Repositorios.SucursalRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class SucursalControlador {
 
     @Autowired
     private MunicipioRepositorio mr;
+
+    @Autowired
+    private EstadoRepositorio esR;
 
     @GetMapping
     public List<Sucursal> findAll() {
@@ -59,11 +63,12 @@ public class SucursalControlador {
 
     @GetMapping("/estado/{idEstado}")
     public ResponseEntity<List<Sucursal>> obtenerPorEstado(@PathVariable Integer idEstado) {
-        Estado estado = new Estado();
-        estado.setIdEstado(idEstado);
+        Optional<Estado> estadoOpt = esR.findById(idEstado); // esR es EstadoRepositorio
+        if (!estadoOpt.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
 
-        List<Sucursal> resultado = sr.findByEstado(estado);
-        if (resultado.isEmpty()) return ResponseEntity.notFound().build();
+        List<Sucursal> resultado = sr.findByEstado(estadoOpt.get());
         return ResponseEntity.ok(resultado);
     }
 

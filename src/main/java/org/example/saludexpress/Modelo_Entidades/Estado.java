@@ -1,6 +1,9 @@
 package org.example.saludexpress.Modelo_Entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name="Estado")
@@ -16,6 +19,11 @@ public class Estado {
 
     @Column(name="codigo_estado",length = 8, unique = true)
     private String codigoEstado;
+
+    @JsonIgnore // Evita serialización infinita
+    @OneToMany(mappedBy = "estado", fetch = FetchType.LAZY)
+    private List<Municipio> municipios;
+
 
     public Integer getIdEstado() {
         return idEstado;
